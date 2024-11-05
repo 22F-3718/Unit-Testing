@@ -75,7 +75,6 @@ public class CreateFilePage extends JFrame {
 				try {
 					onSaveToDB();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -98,7 +97,7 @@ public class CreateFilePage extends JFrame {
 				try {
 					onBack();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}
