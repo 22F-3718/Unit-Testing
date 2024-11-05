@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -19,10 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 import textEditorDataAccessLayer.DocumentDAO;
 import textEditorDataAccessLayer.TextEditorDBDAO;
 
-public class ImportFilePagePO extends JFrame {
+public class ImportFilePagePO extends JFrame implements I_Importing{
 
     private static final long serialVersionUID = 1L;
     private JTextField searchField;
@@ -95,12 +97,12 @@ public class ImportFilePagePO extends JFrame {
         setVisible(true);
     }
 
-    private void loadAllDocuments() {
+    public void loadAllDocuments() {
         ArrayList<DocumentDAO> documents = documentsDAL.getAllDocuments();
         populateTable(documents);
     }
 
-    private void populateTable(ArrayList<DocumentDAO> documents) {
+    public void populateTable(ArrayList<DocumentDAO> documents) {
         String[] columnNames = { "FileID", "FileName", "CreationDate", "LastUpdateTime", "Content" };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
@@ -119,7 +121,7 @@ public class ImportFilePagePO extends JFrame {
         documentTable.removeColumn(documentTable.getColumnModel().getColumn(4));
     }
 
-    private void onSearch() {
+    public void onSearch() {
         String fileName = searchField.getText();
         if (!fileName.isEmpty()) {
             ArrayList<DocumentDAO> documents = documentsDAL.searchDocumentsByName(fileName);
@@ -129,7 +131,7 @@ public class ImportFilePagePO extends JFrame {
         }
     }
 
-    private void onImport() {
+    public void onImport() {
         int row = documentTable.getSelectedRow();
         if (row != -1) {
             DefaultTableModel model = (DefaultTableModel) documentTable.getModel();
@@ -162,7 +164,7 @@ public class ImportFilePagePO extends JFrame {
         System.exit(0);
     }
 
-    private void showDocumentDescription(DocumentDAO selectedDocument) {
+    public void showDocumentDescription(DocumentDAO selectedDocument) {
         String description = selectedDocument.getFileContent();
         new DocumentContentPage(description, selectedDocument.getFileName());
     }
